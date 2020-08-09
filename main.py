@@ -11,7 +11,7 @@ def notifyme(title,message):
         title = title,
         message = message,
         app_icon = "C:\\Users\\yashk\\Videos\\work\\CoronaVisrus Notification System\\icon.ico",
-        timeout = 10
+        timeout = 20
     )
 
 def getData(url):
@@ -25,19 +25,20 @@ if __name__ == "__main__":
         today = date.today()
         today= str(today)
         print(type(today))
-        for i in myJSONdata.get("states_daily"):
+        for i in myJSONdata.get("states_daily")[-3:]:
             # print(i.get('date'))
             # print("\ntoday date is : ",today) 
             # print('\n')
             # print('\n')
-            if i.get('date')=="07-Aug-20":
-                if i.get('status')=="Recovered":
-                    Recovered = i.get('gj')
-                if i.get('status')=="Confirmed":
-                    Confirmed = i.get('gj')
-                if i.get('status')=="Deceased":
-                    Deceased = i.get('gj')
+            # if i.get('date')=="07-Aug-20":
+            date = i.get('date')
+            if i.get('status')=="Recovered":
+                Recovered = i.get('gj')
+            if i.get('status')=="Confirmed":
+                Confirmed = i.get('gj')
+            if i.get('status')=="Deceased":
+                Deceased = i.get('gj')
         final_string = f"Confirmed : {Confirmed}\nRecovered : {Recovered}\nDeceased  :  {Deceased}\nDate  : {today}"
-        print(final_string)
-        notifyme("State : Gujrat",final_string)
-        time.sleep(12)
+
+        notifyme("State : Gujrat",f"Last Update : {date}\n"+final_string)
+        time.sleep(3600)
